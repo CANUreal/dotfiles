@@ -1,0 +1,174 @@
+# ==============================================================================
+#  ____                     _______  __
+# / ___|__      ____ _ _   |  __\ \/ /
+# \___ \\ \ /\ / / _` | |  | |_  \  / 
+#  ___) |\ V  V / (_| | |  |  _| /  \ 
+# |____/  \_/\_/ \__,_|_|  |_|  /_/\_\
+#
+# ==============================================================================
+
+### SwayFX Görsel Ayarları
+# Animasyonları etkinleştir
+#animations enable
+
+# Köşe Yuvarlama ve Boşluklar
+corner_radius 12
+gaps inner 12
+gaps outer 4
+
+# Bulanıklaştırma (Blur)
+blur enable
+blur_xray disable
+blur_passes 3
+blur_radius 5
+
+# Gölgeler (Shadows)
+shadows enable
+shadows_on_csd enable
+shadow_blur_radius 15
+shadow_color #0000007F
+
+# Aktif Olmayan Pencereleri Karartma
+default_dim_inactive 0.15
+
+# Pencere Kenarlıkları Temizliği
+default_border none
+default_floating_border normal
+smart_borders on
+
+# ==============================================================================
+### Girdi Ayarları (Klavye & Dil)
+# Türkçe klavye düzeni burada tanımlandı
+input "type:keyboard" {
+    xkb_layout tr
+}
+
+# ==============================================================================
+### Değişkenler
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term foot
+set $menu rofi -show drun
+
+# ==============================================================================
+### Çıktı ve Arka Plan
+# Hata veren @datadir@ kaldırıldı, yerine temiz bir koyu renk atandı.
+# Kendi duvar kağıdınız varsa yolu buraya yazabilirsiniz (Örn: output * bg /path/to/image.png fill)
+output * bg /home/deniz/Downloads/wallhaven-jexkwm_1920x1080.png fill 
+
+# ==============================================================================
+### Tuş Atamaları (Keybindings)
+
+# Temel Kısayollar
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec $menu
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'SwayFX'ten çıkmak istiyor musunuz?' -B 'Evet' 'swaymsg exit'
+
+# Odak Değiştirme (Vim & Ok Tuşları)
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Pencere Taşıma
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Çalışma Alanları (Workspaces)
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# Pencereleri Çalışma Alanlarına Taşıma
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Düzen ve Görünüm Modları
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# Floating Pencereleri Fare ile Taşıma/Boyutlandırma
+floating_modifier $mod normal
+
+# ==============================================================================
+### Yeniden Boyutlandırma Modu (Resize Mode)
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# ==============================================================================
+### Medya ve Sistem Kısayolları
+bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+
+# Ekran Görüntüsü (Grim) -> Print tuşuna basınca Resimler klasörüne tarih damgasıyla kaydeder
+bindsym Print exec grim -g "$(slurp)" - | tee ~/Resimler/$(date +%Y%m%d_%Hh%Mm%Ss)_grim.png | wl-copy
+
+# ==============================================================================
+### Durum Çubuğu (Bar)
+exec waybar
+
+
+
+
+# Sistem yapılandırmalarını dahil et
+include @sysconfdir@/sway/config.d/*
+exec dbus-update-activation-environment --all
