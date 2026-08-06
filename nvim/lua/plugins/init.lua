@@ -1,5 +1,6 @@
 return {
 
+    -- Mason LSP Installer
     {
         "williamboman/mason.nvim",
         config = function()
@@ -37,6 +38,7 @@ return {
         end,
     },
 
+    -- Completion (Blink.cmp)
     {
         "saghen/blink.cmp",
         version = "*",
@@ -92,6 +94,7 @@ return {
         end,
     },
 
+   -- Dosya Ağacı (NvimTree)
     {
         "nvim-tree/nvim-tree.lua",
         dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -102,12 +105,12 @@ return {
                     side = "left",
                 },
                 renderer = {
-                    group_empty_dirs = true,
+                    group_empty = true,
                 },
             })
             vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { silent = true })
         end,
-    },
+    }, 
 
     {
         "akinsho/bufferline.nvim",
@@ -143,13 +146,7 @@ return {
         "ellisonleao/gruvbox.nvim",
         priority = 1000,
         config = function()
-            require("gruvbox").setup({
-                transparent_mode = true,
-            })
             vim.cmd.colorscheme("gruvbox")
-            vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-            vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-            vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
         end,
     },
 
