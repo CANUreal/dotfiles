@@ -1,11 +1,10 @@
 return {
 
-    -- Mason LSP installer
     {
         "williamboman/mason.nvim",
         config = function()
             require("mason").setup()
-        end
+        end,
     },
 
     {
@@ -21,7 +20,7 @@ return {
                     "lua_ls",
                     "bashls",
                     "pyright",
-                }
+                },
             })
 
             local servers = {
@@ -35,10 +34,9 @@ return {
                 vim.lsp.config(server, {})
                 vim.lsp.enable(server)
             end
-        end
+        end,
     },
 
-    -- Completion (Blink.cmp)
     {
         "saghen/blink.cmp",
         version = "*",
@@ -48,18 +46,11 @@ return {
         opts = {
             keymap = {
                 preset = "none",
-
-                -- Öneri menüsü açıkken Tab kabul eder; kapalıysa varsayılan Tab (indent) atar
                 ["<Tab>"] = { "accept", "fallback" },
-
-                -- Ok tuşları menüde gezer, menü kapalıysa normal imleç hareketi yapar
                 ["<Down>"] = { "select_next", "fallback" },
                 ["<Up>"] = { "select_prev", "fallback" },
-
-                -- Enter her zaman varsayılan alt satıra geçme işlevini korur
                 ["<CR>"] = {},
             },
-
             sources = {
                 default = {
                     "lsp",
@@ -68,16 +59,15 @@ return {
                     "buffer",
                 },
             },
-        }
+        },
     },
 
-    -- Otomatik kapatma
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         config = function()
             require("nvim-autopairs").setup({})
-        end
+        end,
     },
 
     {
@@ -102,13 +92,65 @@ return {
         end,
     },
 
-    -- Tema
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+            require("nvim-tree").setup({
+                view = {
+                    width = 30,
+                    side = "left",
+                },
+                renderer = {
+                    group_empty_dirs = true,
+                },
+            })
+            vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { silent = true })
+        end,
+    },
+
+    {
+        "akinsho/bufferline.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+            require("bufferline").setup({
+                options = {
+                    mode = "buffers",
+                    diagnostics = "nvim_lsp",
+                    separator_style = "thin",
+                },
+            })
+            vim.keymap.set("n", "<Tab>", ":BufferLineCycleNext<CR>", { silent = true })
+            vim.keymap.set("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", { silent = true })
+            vim.keymap.set("n", "<A-c>", ":bdelete<CR>", { silent = true })
+        end,
+    },
+
+    {
+        "akinsho/toggleterm.nvim",
+        version = "*",
+        config = function()
+            require("toggleterm").setup({
+                size = 15,
+                open_mapping = [[<C-\>]],
+                direction = "horizontal",
+                shade_terminals = true,
+            })
+        end,
+    },
+
     {
         "ellisonleao/gruvbox.nvim",
         priority = 1000,
         config = function()
+            require("gruvbox").setup({
+                transparent_mode = true,
+            })
             vim.cmd.colorscheme("gruvbox")
-        end
-    }
+            vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+            vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+            vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+        end,
+    },
 
 }
