@@ -141,12 +141,14 @@ return {
             })
         end,
     },
+    
+    -- edited below this!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     {
-        "ellisonleao/gruvbox.nvim",
+        "bluz71/vim-nightfly-colors",
         priority = 1000,
         config = function()
-            vim.cmd.colorscheme("gruvbox")
+            vim.cmd.colorscheme("nightfly")
         end,
     },
 
