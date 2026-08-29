@@ -151,7 +151,7 @@ return {
             vim.cmd.colorscheme("nightfly")
         end,
     },
-    
+    -- Bottom bart 
     {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -164,6 +164,15 @@ return {
             },
         })
     end,
-},
+    },
+    -- Completion 
+    require("lazy").setup({
+    {
+      "supermaven-inc/supermaven-nvim",
+      config = function()
+        require("supermaven-nvim").setup({})
+      end,
+    },
+    }, {})
 
 } 
